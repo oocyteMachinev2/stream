@@ -1,0 +1,1 @@
+# explain the folder structure here like structure of transfer frame, baudrate. Maybe is some precaution on operating code

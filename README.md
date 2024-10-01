@@ -5,7 +5,7 @@ Structure of project:
 stream/
 │
 ├── vision_system/		#space for develop algorithm related to camera
-│   ├── __init__.py                  	# use to call this folder from another
+│   ├── ______init______.py                  	# use to call this folder from another
 │   ├── models/
 │   ├── training_data/
 │   ├── evaluation/
@@ -36,7 +36,7 @@ stream/
 │   ├── utils.py
 │   └── logger.py
 │
-├── test_space/
+├── lab_space/
 │   ├── __init__.py                   # Marks this directory as a package
 │   ├── test_ai.py
 │   ├── test_plc.py
@@ -56,7 +56,7 @@ stream/
 
 │		└── inputing data/ 	# information of this person when typing initial
 
-├── logging_evironment/
+├── environment_logging/
 │   ├── dd_mm_yy1/
 
 │               ├──temp.csv
