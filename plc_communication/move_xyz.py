@@ -16,7 +16,7 @@ def read_DB_number(db_number, data, length):
 	return value[0]
 
 def write_DB_number(db_number, start_address, value):
-	plc.db_write(db_number, start_address, value)
+	plc.db_write(db_number, start_address, bytearray(struct.pack('>f', value)))
 
 def writeBool_plc(db_number, start_offset, bit_offset, value):
     reading = plc.db_read(db_number, start_offset, 1)
@@ -53,22 +53,14 @@ distance_Rel = 6
 velocity = 10
 real_position = 14
 
-distance_Abs = 2
-
-def convert_mm_x(motor, coordination_x):
-    position_in_pulse = read_DB_number(motor, coordination_x, 4)
-    position_in_mm = position_in_pulse * -2 / STEPS_PER_REVOLUTION
-    return position_in_mm
-
-def convert_mm_yz(motor, coordination_yz):
-    position_in_pulse = read_DB_number(motor, coordination_yz, 4)
-    position_in_mm = position_in_pulse * -5 / STEPS_PER_REVOLUTION
-    return position_in_mm
+def convert_mm_to_pulse(coordination):
+    position_in_pulse = coordination / 5 * STEPS_PER_REVOLUTION
+    return position_in_pulse
 
 def move_coordination_motor(coordination_x, coordination_y, coordination_z):
-    coordination_x_pulse = convert_mm_x(motor_x, coordination_x)
-    coordination_y_pulse = convert_mm_yz(motor_y, coordination_x)
-    coordination_z_pulse = convert_mm_yz(motor_z, coordination_x)
+    coordination_x_pulse = convert_mm_to_pulse(coordination_x)
+    coordination_y_pulse = convert_mm_to_pulse(coordination_y)
+    coordination_z_pulse = convert_mm_to_pulse(coordination_z)
 
     write_DB_number(motor_x, distance_Abs, coordination_x_pulse)
     write_DB_number(motor_y, distance_Abs, coordination_y_pulse)
@@ -80,5 +72,5 @@ def move_coordination_motor(coordination_x, coordination_y, coordination_z):
     
     print("moved to (x,y,z):", coordination_x, coordination_y, coordination_z)
     
-move_coordination_motor(motor_x, 5, 10, 15)
+move_coordination_motor(45, 51, 22.8)
 
